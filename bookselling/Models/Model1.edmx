@@ -1,0 +1,613 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BooksaleModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bill">
+          <Key>
+            <PropertyRef Name="Bill_ID" />
+          </Key>
+          <Property Name="Bill_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Book_ID" Type="int" Nullable="false" />
+          <Property Name="Bill_Date" Type="date" Nullable="false" />
+          <Property Name="Total_Price" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Invoice" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="Book_ID" />
+          </Key>
+          <Property Name="Book_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Book_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Genre" Type="varchar" MaxLength="50" />
+          <Property Name="Publisher" Type="int" Nullable="false" />
+          <Property Name="Cost_Price" Type="int" Nullable="false" />
+          <Property Name="Sell_price" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Employee" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Customer_ID" />
+          </Key>
+          <Property Name="Customer_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Passwords" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Age" Type="int" Nullable="false" />
+          <Property Name="Book" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="Emp_ID" />
+          </Key>
+          <Property Name="Emp_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Emp_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone_Number" Type="bigint" Nullable="false" />
+          <Property Name="Salary" Type="int" Nullable="false" />
+          <Property Name="users_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="Invoice" />
+          </Key>
+          <Property Name="Invoice" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Total_Amount" Type="int" Nullable="false" />
+          <Property Name="Bill_Date" Type="date" Nullable="false" />
+          <Property Name="Employee" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Seller">
+          <Key>
+            <PropertyRef Name="Seller_ID" />
+          </Key>
+          <Property Name="Seller_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Publisher" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Seller_Bill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Book" Type="int" Nullable="false" />
+          <Property Name="Publisher" Type="int" Nullable="false" />
+          <Property Name="Total_Amount" Type="int" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="user_ID" />
+          </Key>
+          <Property Name="user_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Role" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Bill_ToTable">
+          <End Role="Book" Type="Self.Book" Multiplicity="1" />
+          <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Book_ID" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="Book_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bill_ToTable_1">
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+          <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Invoice" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="Invoice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Book_ToTable">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="Emp_ID" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="Employee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Book_ToTable_1">
+          <End Role="Seller" Type="Self.Seller" Multiplicity="1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seller">
+              <PropertyRef Name="Seller_ID" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="Publisher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_ToTable">
+          <End Role="Book" Type="Self.Book" Multiplicity="1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Book_ID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="Book" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_ToTable">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_ID" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="users_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoice_ToTable">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="Emp_ID" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="Employee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Seller_Bill_ToTable">
+          <End Role="Seller" Type="Self.Seller" Multiplicity="1" />
+          <End Role="Seller_Bill" Type="Self.Seller_Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seller">
+              <PropertyRef Name="Seller_ID" />
+            </Principal>
+            <Dependent Role="Seller_Bill">
+              <PropertyRef Name="Publisher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Seller_Bill_ToTable_1">
+          <End Role="Book" Type="Self.Book" Multiplicity="1" />
+          <End Role="Seller_Bill" Type="Self.Seller_Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Book_ID" />
+            </Principal>
+            <Dependent Role="Seller_Bill">
+              <PropertyRef Name="Book" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BooksaleModelStoreContainer">
+          <EntitySet Name="Bill" EntityType="Self.Bill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Seller" EntityType="Self.Seller" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Seller_Bill" EntityType="Self.Seller_Bill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Bill_ToTable" Association="Self.FK_Bill_ToTable">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="Bill" EntitySet="Bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bill_ToTable_1" Association="Self.FK_Bill_ToTable_1">
+            <End Role="Invoice" EntitySet="Invoice" />
+            <End Role="Bill" EntitySet="Bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Book_ToTable" Association="Self.FK_Book_ToTable">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Book_ToTable_1" Association="Self.FK_Book_ToTable_1">
+            <End Role="Seller" EntitySet="Seller" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_ToTable" Association="Self.FK_Customer_ToTable">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_ToTable" Association="Self.FK_Employees_ToTable">
+            <End Role="User" EntitySet="User" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_ToTable" Association="Self.FK_Invoice_ToTable">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Invoice" EntitySet="Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Seller_Bill_ToTable" Association="Self.FK_Seller_Bill_ToTable">
+            <End Role="Seller" EntitySet="Seller" />
+            <End Role="Seller_Bill" EntitySet="Seller_Bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Seller_Bill_ToTable_1" Association="Self.FK_Seller_Bill_ToTable_1">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="Seller_Bill" EntitySet="Seller_Bill" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BooksaleModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bill">
+          <Key>
+            <PropertyRef Name="Bill_ID" />
+          </Key>
+          <Property Name="Bill_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Book_ID" Type="Int32" Nullable="false" />
+          <Property Name="Bill_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Total_Price" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Invoice" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Book" Relationship="Self.FK_Bill_ToTable" FromRole="Bill" ToRole="Book" />
+          <NavigationProperty Name="Invoice1" Relationship="Self.FK_Bill_ToTable_1" FromRole="Bill" ToRole="Invoice" />
+        </EntityType>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="Book_ID" />
+          </Key>
+          <Property Name="Book_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Book_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Genre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Publisher" Type="Int32" Nullable="false" />
+          <Property Name="Cost_Price" Type="Int32" Nullable="false" />
+          <Property Name="Sell_price" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Employee" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bills" Relationship="Self.FK_Bill_ToTable" FromRole="Book" ToRole="Bill" />
+          <NavigationProperty Name="Employee1" Relationship="Self.FK_Book_ToTable" FromRole="Book" ToRole="Employees" />
+          <NavigationProperty Name="Seller" Relationship="Self.FK_Book_ToTable_1" FromRole="Book" ToRole="Seller" />
+          <NavigationProperty Name="Customers" Relationship="Self.FK_Customer_ToTable" FromRole="Book" ToRole="Customer" />
+          <NavigationProperty Name="Seller_Bill" Relationship="Self.FK_Seller_Bill_ToTable_1" FromRole="Book" ToRole="Seller_Bill" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Customer_ID" />
+          </Key>
+          <Property Name="Customer_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Passwords" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Age" Type="Int32" Nullable="false" />
+          <Property Name="Book" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Book1" Relationship="Self.FK_Customer_ToTable" FromRole="Customer" ToRole="Book" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Emp_ID" />
+          </Key>
+          <Property Name="Emp_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Emp_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Phone_Number" Type="Int64" Nullable="false" />
+          <Property Name="Salary" Type="Int32" Nullable="false" />
+          <Property Name="users_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Books" Relationship="Self.FK_Book_ToTable" FromRole="Employees" ToRole="Book" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Employees_ToTable" FromRole="Employees" ToRole="User" />
+          <NavigationProperty Name="Invoices" Relationship="Self.FK_Invoice_ToTable" FromRole="Employees" ToRole="Invoice" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="Invoice1" />
+          </Key>
+          <Property Name="Invoice1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Total_Amount" Type="Int32" Nullable="false" />
+          <Property Name="Bill_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Employee" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bills" Relationship="Self.FK_Bill_ToTable_1" FromRole="Invoice" ToRole="Bill" />
+          <NavigationProperty Name="Employee1" Relationship="Self.FK_Invoice_ToTable" FromRole="Invoice" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="Seller">
+          <Key>
+            <PropertyRef Name="Seller_ID" />
+          </Key>
+          <Property Name="Seller_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Publisher" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Books" Relationship="Self.FK_Book_ToTable_1" FromRole="Seller" ToRole="Book" />
+          <NavigationProperty Name="Seller_Bill" Relationship="Self.FK_Seller_Bill_ToTable" FromRole="Seller" ToRole="Seller_Bill" />
+        </EntityType>
+        <EntityType Name="Seller_Bill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Book" Type="Int32" Nullable="false" />
+          <Property Name="Publisher" Type="Int32" Nullable="false" />
+          <Property Name="Total_Amount" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Book1" Relationship="Self.FK_Seller_Bill_ToTable_1" FromRole="Seller_Bill" ToRole="Book" />
+          <NavigationProperty Name="Seller" Relationship="Self.FK_Seller_Bill_ToTable" FromRole="Seller_Bill" ToRole="Seller" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="user_ID" />
+          </Key>
+          <Property Name="user_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_ToTable" FromRole="User" ToRole="Employees" />
+        </EntityType>
+        <Association Name="FK_Bill_ToTable">
+          <End Role="Book" Type="Self.Book" Multiplicity="1" />
+          <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Book_ID" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="Book_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bill_ToTable_1">
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+          <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Invoice1" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="Invoice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Book_ToTable">
+          <End Role="Employees" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="Emp_ID" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="Employee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Book_ToTable_1">
+          <End Role="Seller" Type="Self.Seller" Multiplicity="1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seller">
+              <PropertyRef Name="Seller_ID" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="Publisher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_ToTable">
+          <End Role="Book" Type="Self.Book" Multiplicity="1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Book_ID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="Book" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Seller_Bill_ToTable_1">
+          <End Role="Book" Type="Self.Book" Multiplicity="1" />
+          <End Role="Seller_Bill" Type="Self.Seller_Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Book_ID" />
+            </Principal>
+            <Dependent Role="Seller_Bill">
+              <PropertyRef Name="Book" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_ToTable">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_ID" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="users_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoice_ToTable">
+          <End Role="Employees" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="Emp_ID" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="Employee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Seller_Bill_ToTable">
+          <End Role="Seller" Type="Self.Seller" Multiplicity="1" />
+          <End Role="Seller_Bill" Type="Self.Seller_Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seller">
+              <PropertyRef Name="Seller_ID" />
+            </Principal>
+            <Dependent Role="Seller_Bill">
+              <PropertyRef Name="Publisher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BooksaleEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bills" EntityType="Self.Bill" />
+          <EntitySet Name="Books" EntityType="Self.Book" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="Invoices" EntityType="Self.Invoice" />
+          <EntitySet Name="Sellers" EntityType="Self.Seller" />
+          <EntitySet Name="Seller_Bill" EntityType="Self.Seller_Bill" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_Bill_ToTable" Association="Self.FK_Bill_ToTable">
+            <End Role="Book" EntitySet="Books" />
+            <End Role="Bill" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bill_ToTable_1" Association="Self.FK_Bill_ToTable_1">
+            <End Role="Invoice" EntitySet="Invoices" />
+            <End Role="Bill" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Book_ToTable" Association="Self.FK_Book_ToTable">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Book_ToTable_1" Association="Self.FK_Book_ToTable_1">
+            <End Role="Seller" EntitySet="Sellers" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_ToTable" Association="Self.FK_Customer_ToTable">
+            <End Role="Book" EntitySet="Books" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Seller_Bill_ToTable_1" Association="Self.FK_Seller_Bill_ToTable_1">
+            <End Role="Book" EntitySet="Books" />
+            <End Role="Seller_Bill" EntitySet="Seller_Bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_ToTable" Association="Self.FK_Employees_ToTable">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_ToTable" Association="Self.FK_Invoice_ToTable">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Invoice" EntitySet="Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Seller_Bill_ToTable" Association="Self.FK_Seller_Bill_ToTable">
+            <End Role="Seller" EntitySet="Sellers" />
+            <End Role="Seller_Bill" EntitySet="Seller_Bill" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BooksaleModelStoreContainer" CdmEntityContainer="BooksaleEntities2">
+          <EntitySetMapping Name="Bills">
+            <EntityTypeMapping TypeName="BooksaleModel.Bill">
+              <MappingFragment StoreEntitySet="Bill">
+                <ScalarProperty Name="Bill_ID" ColumnName="Bill_ID" />
+                <ScalarProperty Name="Book_ID" ColumnName="Book_ID" />
+                <ScalarProperty Name="Bill_Date" ColumnName="Bill_Date" />
+                <ScalarProperty Name="Total_Price" ColumnName="Total_Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Invoice" ColumnName="Invoice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Books">
+            <EntityTypeMapping TypeName="BooksaleModel.Book">
+              <MappingFragment StoreEntitySet="Book">
+                <ScalarProperty Name="Book_ID" ColumnName="Book_ID" />
+                <ScalarProperty Name="Book_Name" ColumnName="Book_Name" />
+                <ScalarProperty Name="Genre" ColumnName="Genre" />
+                <ScalarProperty Name="Publisher" ColumnName="Publisher" />
+                <ScalarProperty Name="Cost_Price" ColumnName="Cost_Price" />
+                <ScalarProperty Name="Sell_price" ColumnName="Sell_price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Employee" ColumnName="Employee" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="BooksaleModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Passwords" ColumnName="Passwords" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Book" ColumnName="Book" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="BooksaleModel.Employee">
+              <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+                <ScalarProperty Name="Emp_Name" ColumnName="Emp_Name" />
+                <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="users_ID" ColumnName="users_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Invoices">
+            <EntityTypeMapping TypeName="BooksaleModel.Invoice">
+              <MappingFragment StoreEntitySet="Invoice">
+                <ScalarProperty Name="Invoice1" ColumnName="Invoice" />
+                <ScalarProperty Name="Total_Amount" ColumnName="Total_Amount" />
+                <ScalarProperty Name="Bill_Date" ColumnName="Bill_Date" />
+                <ScalarProperty Name="Employee" ColumnName="Employee" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sellers">
+            <EntityTypeMapping TypeName="BooksaleModel.Seller">
+              <MappingFragment StoreEntitySet="Seller">
+                <ScalarProperty Name="Seller_ID" ColumnName="Seller_ID" />
+                <ScalarProperty Name="Publisher" ColumnName="Publisher" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Seller_Bill">
+            <EntityTypeMapping TypeName="BooksaleModel.Seller_Bill">
+              <MappingFragment StoreEntitySet="Seller_Bill">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Book" ColumnName="Book" />
+                <ScalarProperty Name="Publisher" ColumnName="Publisher" />
+                <ScalarProperty Name="Total_Amount" ColumnName="Total_Amount" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="BooksaleModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="user_ID" ColumnName="user_ID" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

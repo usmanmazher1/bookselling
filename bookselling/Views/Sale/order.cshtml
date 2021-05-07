@@ -1,0 +1,66 @@
+﻿@model IEnumerable<bookselling.Models.cart>
+@{
+    ViewBag.Title = "order";
+    Layout = "~/Views/Shared/dashboard.cshtml";
+}
+
+@{
+    int sum = 0;
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Bill_Date)
+        </th>
+
+
+        <th>
+            @Html.DisplayNameFor(model => model.Book_ID)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total_Price)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bill_Date)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Book_ID)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Total_Price)
+            </td>
+            <td>
+                @Html.ActionLink("Remove", "Remove", new { id = item.Book_ID }, new { @class = "btn btn-default", @style = "background-color:Red" })
+            </td>
+
+        </tr>
+    }
+
+    @foreach (var x in Model)
+    {
+        sum = Convert.ToInt32(x.Total_Price) + sum;
+    }
+    <tfoot>
+        <tr> <td> </td>   <td> </td>   <td> <b> Total Amount </b></td> <td> @sum </td>   </tr>
+    </tfoot>
+
+</table>
+
+@Html.ActionLink("Place Order", "confirmorder", new { }, new { @class = "btn btn-warning" })

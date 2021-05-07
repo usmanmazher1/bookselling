@@ -1,0 +1,27 @@
+﻿@model bookselling.Models.Seller
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/dashboard.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Seller</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Publisher)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Publisher)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Seller_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

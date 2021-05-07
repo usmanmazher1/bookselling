@@ -1,0 +1,48 @@
+﻿@model IEnumerable<bookselling.Models.Seller_Bill>
+
+@{
+    ViewBag.Title = "Purchase_Bill";
+    Layout = "~/Views/Shared/dashboard.cshtml";
+}
+
+<h2>Purchase Record</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Total_Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Book1.Book_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Seller.Publisher)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Total_Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Book1.Book_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Seller.Publisher)
+        </td>
+        <td>
+          
+        </td>
+    </tr>
+}
+
+</table>

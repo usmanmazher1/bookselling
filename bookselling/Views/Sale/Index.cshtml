@@ -1,0 +1,58 @@
+﻿@model IEnumerable<bookselling.Models.Bill>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/dashboard.cshtml";
+}
+
+<h2>Index</h2>
+@if (User.IsInRole("Employee"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-default", @style = "background-color:Blue" })
+    </p>
+}
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Bill_Date)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Total_Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.Book_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Invoice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Bill_Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total_Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.Book_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Invoice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+
+            </tr>
+        }
+
+    </table>

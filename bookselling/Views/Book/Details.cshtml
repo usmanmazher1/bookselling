@@ -1,0 +1,67 @@
+﻿@model bookselling.Models.Book
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/dashboard.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Book_Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Book_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Book_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cost_Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cost_Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Publisher)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Publisher)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sell_price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sell_price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee1.Emp_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employee1.Emp_Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Book_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
